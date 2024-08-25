@@ -34,11 +34,11 @@ app.use("/api/users",userRoute)
 app.use("/api/posts",postRoute)
 app.use("/api/comments",commentRoute)
 
-app.use(express.static(path.join(__dirname, '../client')));
+app.use(express.static(path.join(__dirname, '/client')));
 
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../client/index.html'));
-});
+app.get('*', (req,res) => {
+    res.sendFile(path.join(__dirname, 'client','index.html'));
+})
 
 
 
