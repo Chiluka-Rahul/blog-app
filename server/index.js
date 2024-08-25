@@ -24,16 +24,15 @@ const connectDB = async () => {
 dotenv.config();
 app.use(express.json());
 app.use("/images", express.static(path.join(__dirname, "images")));
+const allowedOrigins = ['http://localhost:5173', 'https://blog-app-4fhc.onrender.com'];
+
 app.use(cors({
     origin: function (origin, callback) {
-
-        if (!origin) return callback(null, true);
-
-        if (origin === 'http://localhost:5173' || origin === 'https://blog-app-4fhc.onrender.com') {
-            return callback(null, true);
+        if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
         }
-
-        return callback(new Error('Not allowed by CORS'), false);
     },
     credentials: true
 }));
